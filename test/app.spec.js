@@ -13,9 +13,9 @@ const app = express();
 app.use(express.static(path.join(__dirname, '/../public')));
 app.use(express.static(path.join(__dirname, '/../dist')));
 
-app.listen(8080);
+app.listen(3100);
 
-const url = 'http://localhost:8080';
+const url = 'http://localhost:3100';
 
 describe('express', () => {
   beforeEach(() => {
@@ -43,14 +43,14 @@ describe('express', () => {
   it('should add todo item with priority', () =>
     nightmare
     .goto(url)
-    .select('select[name=todoPriority]', '1')
+    .select('select[name=todoPriority]', 'High')
     .type('textarea[name=todoText]', 'ITEM')
     .click('button.btn')
     .wait(1000)
     .react.findAll('li')
     .then((component) => {
       expect(component[0].props.todo.text).to.be.equal('ITEM');
-      expect(component[0].props.todo.priority).to.be.equal('1');
+      expect(component[0].props.todo.priority).to.be.equal('High');
     })
   ).timeout(12000)
 
